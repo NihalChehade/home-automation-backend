@@ -1,8 +1,12 @@
 // services/mqttService.js
 const mqtt = require("mqtt");
-const client = mqtt.connect("mqtt://localhost:1883", {
+
+// Use environment variable or default to localhost
+const brokerUrl = process.env.MQTT_BROKER_URL || "mqtt://localhost:1883";
+
+const client = mqtt.connect(brokerUrl, {
   debug: true,
-}); // Use your Mosquitto broker URL
+}); 
 
 client.on("connect", () => {
   console.log("MQTT Client Connected to the broker");
@@ -21,32 +25,32 @@ client.on("reconnect", function () {
 });
 
 module.exports = {
-    turnOn: (topic) => {
-      client.publish(topic, "ON", { qos: 1 }, (error) => {
-        if (error) {
-          console.error("Failed to send 'ON' message", error);
-        }
-      });
-    },
-    turnOff: (topic) => {
-      client.publish(topic, "OFF", { qos: 1 }, (error) => {
-        if (error) {
-          console.error("Failed to send 'OFF' message", error);
-        }
-      });
-    },
-    setBrightness: (topic, brightness) => {
-      client.publish(topic, `BRIGHTNESS:${brightness}`, { qos: 1 }, (error) => {
-        if (error) {
-          console.error("Failed to send 'BRIGHTNESS' message", error);
-        }
-      });
-    },
-    setColor: (topic, color) => {
-      client.publish(topic, `COLOR:${color}`, { qos: 1 }, (error) => {
-        if (error) {
-          console.error("Failed to send 'COLOR' message", error);
-        }
-      });
-    },
-  };
+  turnOn: (topic) => {
+    client.publish(topic, "ON", { qos: 1 }, (error) => {
+      if (error) {
+        console.error("Failed to send 'ON' message", error);
+      }
+    });
+  },
+  turnOff: (topic) => {
+    client.publish(topic, "OFF", { qos: 1 }, (error) => {
+      if (error) {
+        console.error("Failed to send 'OFF' message", error);
+      }
+    });
+  },
+  setBrightness: (topic, brightness) => {
+    client.publish(topic, `BRIGHTNESS:${brightness}`, { qos: 1 }, (error) => {
+      if (error) {
+        console.error("Failed to send 'BRIGHTNESS' message", error);
+      }
+    });
+  },
+  setColor: (topic, color) => {
+    client.publish(topic, `COLOR:${color}`, { qos: 1 }, (error) => {
+      if (error) {
+        console.error("Failed to send 'COLOR' message", error);
+      }
+    });
+  },
+};
