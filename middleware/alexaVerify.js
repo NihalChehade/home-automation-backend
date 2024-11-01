@@ -11,11 +11,12 @@ const alexaAdapter = new ExpressAdapter(skill, true, true);
 module.exports = {
   alexaVerifier: (req, res, next) => {
     // Use the adapter to verify Alexa requests
-    alexaAdapter.getRequestHandlers(req, res).then(() => {
-      next();
-    }).catch((error) => {
+    try {
+      alexaAdapter.getRequestHandlers(req, res);
+      next();  // Move to next middleware once Alexa request is handled
+    } catch (error) {
       console.error('Verification Failed:', error);
       res.status(401).json({ error: 'Unauthorized' });
-    });
+    }
   }
 };
