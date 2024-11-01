@@ -1,0 +1,41 @@
+{
+    "$schema": "https://json-schema.org/draft/2019-09/schema",
+    "$id": "http://example.com/example.json",
+    "type": "object",
+    "default": {},
+    "title": "Root Schema",
+    "required": ["status"],
+    "properties": {
+        "status": {
+            "type": "string",
+            "default": "",
+            "title": "The Status Schema",
+            "minLength": 2,
+            "maxLength": 20,
+            "examples": ["ON", "OFF"]
+        },
+        "brightness": {
+            "type": "integer",
+            "default": 0,
+            "title": "The Brightness Schema",
+            "minimum": 0,
+            "maximum": 100,
+            "examples": [0, 50, 100],
+            "description": "Represents the brightness of a light device as a percentage from 0 to 100."
+        },
+        "color": {
+            "type": "string",
+            "default": "white",
+            "title": "The Color Schema",
+            "minLength": 3,
+            "maxLength": 30,
+            "examples": ["white", "red", "blue"],
+            "description": "Represents the color of a light device as a string."
+        }
+    },
+    "examples": [{
+        "status": "ON",
+        "brightness": 75,
+        "color": "blue"
+    }]
+}
